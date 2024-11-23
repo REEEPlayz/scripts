@@ -1,0 +1,208 @@
+-- idc its a bfdia script since im banned also credits me if you give it sto someone
+-- Ghostplayer Scripts by ItzzJoshua_
+
+game.StarterGui:SetCore("SendNotification", {
+Title = "Scripts";
+Text = "Credits by ItzzJoshua_ and Modified by reees._.weave69 on tiktok"; -- what the text says (ofc)
+Duration = 60;
+})
+
+local ScreenGui = Instance.new("ScreenGui")
+local main = Instance.new("Frame")
+local title = Instance.new("TextLabel")
+local prisonbreakerv15 = Instance.new("TextBox")
+local prisonbreakerv16 = Instance.new("TextButton")
+local prisonbreakerv17 = Instance.new("TextBox")
+local prisonbreakerv18 = Instance.new("TextButton")
+local prisonbreakerv19 = Instance.new("TextButton")
+local prisonbreakerv20 = Instance.new("TextBox")
+local prisonbreakerv21 = Instance.new("TextBox")
+local prisonbreakerv22 = Instance.new("TextButton")
+local close = Instance.new("TextButton")
+local openmain = Instance.new("Frame")
+local open = Instance.new("TextButton")
+--Properties:
+ScreenGui.Parent = game.CoreGui
+
+main.Name = "main"
+main.Parent = ScreenGui
+main.BackgroundColor3 = Color3.new(0, 0, 255)
+main.Position = UDim2.new(0.0203577988, 0, 0.641277611, 0)
+main.Size = UDim2.new(0, 332, 0, 340)
+main.Visible = false
+main.Active = true
+main.Draggable = true
+
+title.Name = "title"
+title.Parent = main
+title.BackgroundColor3 = Color3.new(1, 0, 1)
+title.Size = UDim2.new(0, 332, 0, 31)
+title.Font = Enum.Font.GothamBold
+title.Text = "TRD Scripts"
+title.TextColor3 = Color3.new(0, 0, 0)
+title.TextSize = 14
+
+--Netless
+prisonbreakerv17.Name = "Netless"
+prisonbreakerv17.Parent = main
+prisonbreakerv17.BackgroundColor3 = Color3.new(0.333333, 1, 2)
+prisonbreakerv17.Position = UDim2.new(0.036144577, 0, 0.379146934, -60)
+prisonbreakerv17.Size = UDim2.new(0, 110, 0, 50)
+prisonbreakerv17.Font = Enum.Font.GothamBold
+prisonbreakerv17.Text = "Flower"
+prisonbreakerv17.TextColor3 = Color3.new(0, 0, 0)
+prisonbreakerv17.TextScaled = true
+prisonbreakerv17.TextSize = 10
+prisonbreakerv17.TextWrapped = true
+
+
+--Fly V3
+prisonbreakerv16.Name = "Fly V3"
+prisonbreakerv16.Parent = main
+prisonbreakerv16.BackgroundColor3 = Color3.new(0.333333, 1, 2)
+prisonbreakerv16.Position = UDim2.new(0.614457846, 0, 0.379146934, -60)
+prisonbreakerv16.Size = UDim2.new(0, 110, 0, 50)
+prisonbreakerv16.Font = Enum.Font.GothamBold
+prisonbreakerv16.Text = "buy character"
+prisonbreakerv16.TextColor3 = Color3.new(0, 0, 0)
+prisonbreakerv16.TextScaled = true
+prisonbreakerv16.TextSize = 14
+prisonbreakerv16.TextWrapped = true
+prisonbreakerv16.MouseButton1Down:connect(function()
+local args = {
+    [1] = prisonbreakerv17.Text
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("RemoteEvents"):WaitForChild("MorphChoose"):FireServer(unpack(args))
+end)
+
+
+prisonbreakerv15.Name = "hold accessory"
+prisonbreakerv15.Parent = main
+prisonbreakerv15.BackgroundColor3 = Color3.new(0.333333, 1, 2)
+prisonbreakerv15.Position = UDim2.new(0.0361, 0, 0.379146937, -10)
+prisonbreakerv15.Size = UDim2.new(0, 110, 0, 50)
+prisonbreakerv15.Font = Enum.Font.GothamBold
+prisonbreakerv15.Text = "switch skins (check console by saying /console) "
+prisonbreakerv15.TextColor3 = Color3.new(0, 0, 0)
+prisonbreakerv15.TextScaled = true
+prisonbreakerv15.TextSize = 10
+prisonbreakerv15.TextWrapped = true
+
+prisonbreakerv18.Name = "FE spider"
+prisonbreakerv18.Parent = main
+prisonbreakerv18.BackgroundColor3 = Color3.new(0.333333, 1, 2)
+prisonbreakerv18.Position = UDim2.new(0.614457846, 0, 0.379146934, -10)
+prisonbreakerv18.Size = UDim2.new(0, 110, 0, 50)
+prisonbreakerv18.Font = Enum.Font.GothamBold
+prisonbreakerv18.Text = "switch skins"
+prisonbreakerv18.TextColor3 = Color3.new(0, 0, 0)
+prisonbreakerv18.TextScaled = true
+prisonbreakerv18.TextSize = 14
+prisonbreakerv18.TextWrapped = true
+prisonbreakerv18.MouseButton1Down:connect(function()
+local args = {
+    [1] = prisonbreakerv15.Text
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("RemoteEvents"):WaitForChild("SwitchSkins"):FireServer(unpack(args))
+end)
+
+prisonbreakerv19.Name = "Zombie"
+prisonbreakerv19.Parent = main
+prisonbreakerv19.BackgroundColor3 = Color3.new(0.333333, 1, 2)
+prisonbreakerv19.Position = UDim2.new(0.036144577, 0, 0.379146934, 40)
+prisonbreakerv19.Size = UDim2.new(0, 110, 0, 50)
+prisonbreakerv19.Font = Enum.Font.GothamBold
+prisonbreakerv19.Text = "switch cakes (probably making a script that prints all cakes) "
+prisonbreakerv19.TextColor3 = Color3.new(0, 0, 0)
+prisonbreakerv19.TextScaled = true
+prisonbreakerv19.TextSize = 10
+prisonbreakerv19.TextWrapped = true
+
+prisonbreakerv20.Name = "Male"
+prisonbreakerv20.Parent = main
+prisonbreakerv20.BackgroundColor3 = Color3.new(0.333333, 1, 2)
+prisonbreakerv20.Position = UDim2.new(0.614457846, 0, 0.379146934, 40)
+prisonbreakerv20.Size = UDim2.new(0, 110, 0, 50)
+prisonbreakerv20.Font = Enum.Font.GothamBold
+prisonbreakerv20.Text = "switch cakes"
+prisonbreakerv20.TextColor3 = Color3.new(0, 0, 0)
+prisonbreakerv20.TextScaled = true
+prisonbreakerv20.TextSize = 14
+prisonbreakerv20.TextWrapped = true
+prisonbreakerv20.MouseButton1Down:connect(function()
+local args = {
+    [1] = prisonbreakerv19.Text
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("RemoteEvents"):WaitForChild("SwitchCakes"):FireServer(unpack(args))
+end)
+
+prisonbreakerv21.Name = "Float"
+prisonbreakerv21.Parent = main
+prisonbreakerv21.BackgroundColor3 = Color3.new(0.333333, 1, 2)
+prisonbreakerv21.Position = UDim2.new(0.036144577, 0, 0.379146934, 90)
+prisonbreakerv21.Size = UDim2.new(0, 110, 0, 50)
+prisonbreakerv21.Font = Enum.Font.GothamBold
+prisonbreakerv21.Text = "put a characters name here (DO NOT PUT USERNAME ONLY CHARACTER NAME)"
+prisonbreakerv21.TextColor3 = Color3.new(0, 0, 0)
+prisonbreakerv21.TextScaled = true
+prisonbreakerv21.TextSize = 10
+prisonbreakerv21.TextWrapped = true
+
+prisonbreakerv22.Name = "Hitbox"
+prisonbreakerv22.Parent = main
+prisonbreakerv22.BackgroundColor3 = Color3.new(0.333333, 1, 2)
+prisonbreakerv22.Position = UDim2.new(0.614457846, 0, 0.379146934, 90)
+prisonbreakerv22.Size = UDim2.new(0, 110, 0, 50)
+prisonbreakerv22.Font = Enum.Font.GothamBold
+prisonbreakerv22.Text = "rig their votes by 5000 or under (?)"
+prisonbreakerv22.TextColor3 = Color3.new(0, 0, 0)
+prisonbreakerv22.TextScaled = true
+prisonbreakerv22.TextSize = 14
+prisonbreakerv22.TextWrapped = true
+prisonbreakerv22.MouseButton1Down:connect(function()
+local args = prisonbreakerv21.Text
+
+game:GetService("ReplicatedStorage"):WaitForChild("RemoteEvents"):WaitForChild("Vote"):FireServer(unpack(args))
+end
+end)
+
+close.Name = "close"
+close.Parent = main
+close.BackgroundColor3 = Color3.new(1, 0, 0)
+close.Position = UDim2.new(0.879518092, 0, 0, 0)
+close.Size = UDim2.new(0, 40, 0, 31)
+close.Font = Enum.Font.GothamBlack
+close.Text = "X"
+close.TextColor3 = Color3.new(0, 0, 0)
+close.TextScaled = true
+close.TextSize = 14
+close.TextWrapped = true
+close.MouseButton1Down:connect(function()
+main.Visible = false
+openmain.Visible = true
+end)
+
+openmain.Name = "openmain"
+openmain.Parent = ScreenGui
+openmain.BackgroundColor3 = Color3.new(1, 1, 1)
+openmain.Position = UDim2.new(0.00801973976, 0, 0.423832953, 0)
+openmain.Size = UDim2.new(0, 100, 0, 28)
+openmain.Active = true
+openmain.Draggable = true
+
+open.Name = "open"
+open.Parent = openmain
+open.BackgroundColor3 = Color3.new(1, 0, 0)
+open.Size = UDim2.new(0, 100, 0, 28)
+open.Font = Enum.Font.GothamBold
+open.Text = "Open"
+open.TextColor3 = Color3.new(0, 0, 0)
+open.TextSize = 18
+open.TextWrapped = true
+open.MouseButton1Down:connect(function()
+openmain.Visible = false
+main.Visible = true
+end)
