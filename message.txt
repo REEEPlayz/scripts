@@ -1,0 +1,170 @@
+-- Create ScreenGui
+local screenGui = Instance.new("ScreenGui")
+screenGui.Name = "MiraculousLadybugGUI"
+screenGui.ResetOnSpawn = false
+screenGui.Parent = game:GetService("CoreGui") -- or PlayerGui
+
+-- VideoFrame
+local videoFrame = Instance.new("VideoFrame")
+videoFrame.Size = UDim2.new(0.2,0,0.2,0)
+videoFrame.Position = UDim2.new(0.4,0,0.4,0)
+videoFrame.BackgroundColor3 = Color3.fromRGB(0,0,0)
+videoFrame.Draggable = true
+videoFrame.Active = true
+videoFrame.Parent = screenGui
+
+-- Overlay label for download/progress
+local statusLabel = Instance.new("TextLabel")
+statusLabel.Size = UDim2.new(1,0,1,0)
+statusLabel.Position = UDim2.new(0,0,0,0)
+statusLabel.BackgroundTransparency = 0.5
+statusLabel.BackgroundColor3 = Color3.fromRGB(0,0,0)
+statusLabel.TextColor3 = Color3.fromRGB(255,255,255)
+statusLabel.TextScaled = true
+statusLabel.Text = ""
+statusLabel.Visible = false
+statusLabel.Parent = videoFrame
+
+-- ScrollingFrame for episodes
+local scrollFrame = Instance.new("ScrollingFrame")
+scrollFrame.Size = UDim2.new(0,200,0,300)
+scrollFrame.Position = UDim2.new(0,10,0,10)
+scrollFrame.BackgroundColor3 = Color3.fromRGB(50,50,50)
+scrollFrame.CanvasSize = UDim2.new(0,0,0,0)
+scrollFrame.ScrollBarThickness = 8
+scrollFrame.Parent = screenGui
+
+-- UIListLayout to organize buttons vertically
+local layout = Instance.new("UIListLayout")
+layout.Parent = scrollFrame
+layout.SortOrder = Enum.SortOrder.LayoutOrder
+layout.Padding = UDim.new(0,2)
+
+-- Fetch episodes from Pastebin
+local episodeRaw = game:HttpGet("https://pastebin.com/raw/QTc6gRSC", true)
+local Episodes = {}
+for line in string.gmatch(episodeRaw, "[^\r\n]+") do
+    local name, url = line:match("^(.-)|(.+)$")
+    if name and url then
+        Episodes[name] = url
+    end
+end
+
+-- Function to delete all downloaded episodes
+local function deleteAllEpisodes()
+    for name,_ in pairs(Episodes) do
+        local filename = name..".mp4"
+        if isfile(filename) then
+            delfile(filename)
+        end
+    end
+end
+
+-- Populate scrolling frame with episode buttons
+for name,url in pairs(Episodes) do
+    local epBtn = Instance.new("TextButton")
+    epBtn.Size = UDim2.new(1,0,0,30)
+    epBtn.Text = name
+    epBtn.Parent = scrollFrame
+
+    epBtn.MouseButton1Click:Connect(function()
+        local filename = name..".mp4"
+
+        -- Show downloading overlay
+        statusLabel.Visible = true
+        statusLabel.Text = "Downloading..."
+
+        -- Delete previous episodes to free space
+        deleteAllEpisodes()
+
+        -- Download if missing
+        if not isfile(filename) then
+            local success, response = pcall(function()
+                return http_request({Url=url, Method="GET"}).Body
+            end)
+            if success and response and #response > 1000 then
+                writefile(filename, response)
+            else
+                warn("Download failed: "..name)
+                statusLabel.Text = "Download Failed"
+                wait(2)
+                statusLabel.Visible = false
+                return
+            end
+        end
+
+        -- Play video
+        local ok,_ = pcall(function()
+            videoFrame.Video = getcustomasset(filename)
+            videoFrame:Play()
+        end)
+
+        if not ok then
+            warn("File corrupt, redownloading: "..name)
+            if isfile(filename) then delfile(filename) end
+            local success, response = pcall(function()
+                return http_request({Url=url, Method="GET"}).Body
+            end)
+            if success and response and #response > 1000 then
+                writefile(filename, response)
+                videoFrame.Video = getcustomasset(filename)
+                videoFrame:Play()
+            else
+                warn("Redownload failed: "..name)
+                statusLabel.Text = "Download Failed"
+                wait(2)
+                statusLabel.Visible = false
+                return
+            end
+        end
+
+        -- Hide overlay once playing
+        statusLabel.Visible = false
+    end)
+end
+
+-- Update CanvasSize to fit all buttons
+scrollFrame.CanvasSize = UDim2.new(0,0,0,layout.AbsoluteContentSize.Y)
+
+-- ==== Playback controls ====
+local playBtn = Instance.new("TextButton")
+playBtn.Size = UDim2.new(0,60,0,30)
+playBtn.Position = UDim2.new(0,220,0,10)
+playBtn.Text = "Play"
+playBtn.Parent = screenGui
+playBtn.MouseButton1Click:Connect(function()
+    if videoFrame.Video ~= "" then videoFrame:Play() end
+end)
+
+local pauseBtn = Instance.new("TextButton")
+pauseBtn.Size = UDim2.new(0,60,0,30)
+pauseBtn.Position = UDim2.new(0,290,0,10)
+pauseBtn.Text = "Pause"
+pauseBtn.Parent = screenGui
+pauseBtn.MouseButton1Click:Connect(function()
+    videoFrame:Pause()
+end)
+
+local stopBtn = Instance.new("TextButton")
+stopBtn.Size = UDim2.new(0,60,0,30)
+stopBtn.Position = UDim2.new(0,360,0,10)
+stopBtn.Text = "Stop"
+stopBtn.Parent = screenGui
+stopBtn.MouseButton1Click:Connect(function()
+    videoFrame:Pause()
+    videoFrame.TimePosition = 0
+end)
+
+-- Volume slider
+local volumeSlider = Instance.new("TextBox")
+volumeSlider.Size = UDim2.new(0,60,0,30)
+volumeSlider.Position = UDim2.new(0,430,0,10)
+volumeSlider.PlaceholderText = "0.5"
+volumeSlider.Text = ""
+volumeSlider.Parent = screenGui
+volumeSlider.FocusLost:Connect(function(enterPressed)
+    local val = tonumber(volumeSlider.Text)
+    if val then
+        videoFrame.Volume = math.clamp(val,0,1)
+    end
+end)
